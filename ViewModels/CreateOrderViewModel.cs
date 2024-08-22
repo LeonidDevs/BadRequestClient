@@ -22,7 +22,7 @@ namespace VittaClient.ViewModels
         private readonly MainWindow _mainWindow;
         private readonly ApiService _apiService;
         private readonly UserDTO _user;
-        private readonly int _userId;
+      //  private readonly int _userId;
         private OrderDTO _order;
 
         private ObservableCollection<OrderItemDTO> _selectedOrderItems;
@@ -65,6 +65,7 @@ namespace VittaClient.ViewModels
             _mainWindow = mainWindow;
             _order = order;
             _order.User = user;
+            _user = user;
 
             _apiService = apiService;
             SelectedOrderItems = order.OrderItems.ToObservableCollection();
