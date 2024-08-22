@@ -47,13 +47,13 @@ namespace VittaClient.ViewModels
         public ICommand AddToOrderCommand { get; }
         public ICommand AcceptCommand { get; }
 
-        public ProductsViewModel(MainWindow mainWindow, ApiService apiService, OrderDTO currentOrder, int userId)
+        public ProductsViewModel(MainWindow mainWindow, ApiService apiService, OrderDTO currentOrder, UserDTO user)
         {
             _mainWindow = mainWindow;
 
             _apiService = apiService;
             _currentOrder = currentOrder;
-            _currentOrder.UserId = userId;
+            _currentOrder.User = user;
 
             Products = new ObservableCollection<ProductViewModel>();
             LoadProductsAsync();
@@ -92,7 +92,7 @@ namespace VittaClient.ViewModels
 
         private void AcceptOrder(object obj)
         {
-            _mainWindow.ChangePage(new CreateOrderView(_apiService, _currentOrder, _currentOrder.UserId));
+            _mainWindow.ChangePage(new CreateOrderView(_apiService, _currentOrder, _currentOrder.User));
         }
 
         private async void LoadProductsAsync()

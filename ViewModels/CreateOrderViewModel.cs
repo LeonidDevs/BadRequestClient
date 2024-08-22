@@ -47,23 +47,24 @@ namespace VittaClient.ViewModels
         public ICommand BuyCommand { get; set; }
 
 
-        public CreateOrderViewModel(MainWindow mainWindow, ApiService apiService, int userID)
+        public CreateOrderViewModel(MainWindow mainWindow, ApiService apiService, UserDTO user)
         {
             _mainWindow = mainWindow;
-            _apiService = apiService;
-            _userId = userID;
 
-            _order = new OrderDTO { UserId = _userId };
-           // SelectedOrderItems = new ObservableCollection<OrderItemDTO>(_order.OrderItems);
+            _apiService = apiService;
+            _user = user;
+
+            _order = new OrderDTO { UserId = _user.UserId };
+            SelectedOrderItems = new ObservableCollection<OrderItemDTO>(_order.OrderItems);
 
             AddProductsCommand = new RelayCommand(AddProductExecute);
         }
 
-        public CreateOrderViewModel(MainWindow mainWindow, ApiService apiService, OrderDTO order, int userId)
+        public CreateOrderViewModel(MainWindow mainWindow, ApiService apiService, OrderDTO order, UserDTO user)
         {
             _mainWindow = mainWindow;
             _order = order;
-            _order.UserId = userId;
+            _order.User = user;
 
             _apiService = apiService;
             SelectedOrderItems = order.OrderItems.ToObservableCollection();
@@ -79,7 +80,7 @@ namespace VittaClient.ViewModels
         private void AddProductExecute(object parameter)
         {
 
-            _mainWindow.ChangePage(new ProductsView(_apiService, _order, _userId));
+            _mainWindow.ChangePage(new ProductsView(_apiService, _order, _user));
 
             OnPropertyChanged(nameof(SelectedOrderItems));
             OnPropertyChanged(nameof(TotalAmount));
@@ -121,6 +122,8 @@ namespace VittaClient.ViewModels
                 if (response.IsSuccessStatusCode)
                 {
                     MessageBox.Show("Order successfully created!");
+                    _mainWindow.ChangePage(new OrdersView(_apiService, _user));
+
                 }
                 else
                 {

@@ -23,19 +23,14 @@ namespace VittaClient.Views
     /// </summary>
     public partial class CreateOrderView : Page
     {
-        public CreateOrderView()
+        public CreateOrderView(ApiService apiService, UserDTO user)
         {
-            InitializeComponent();
-
-        }
-        public CreateOrderView(ApiService apiService, int userId)
-        {
-            DataContext = new CreateOrderViewModel(Application.Current.MainWindow as MainWindow, apiService, userId);
+            DataContext = new CreateOrderViewModel(Application.Current.MainWindow as MainWindow, apiService, user);
             InitializeComponent();
         }
-        public CreateOrderView(ApiService apiService, OrderDTO order, int userId)
+        public CreateOrderView(ApiService apiService, OrderDTO order, UserDTO user)
         {
-            DataContext = new CreateOrderViewModel(Application.Current.MainWindow as MainWindow, apiService, order, userId);
+            DataContext = new CreateOrderViewModel(Application.Current.MainWindow as MainWindow, apiService, order, user);
             InitializeComponent();
         }
     }

@@ -20,7 +20,6 @@ namespace VittaClient.ViewModels
 
         private readonly ApiService _apiService;
         private readonly UserDTO _user;
-        private readonly int _userId;
 
         private ObservableCollection<OrderDTO> _orders;
 
@@ -43,7 +42,6 @@ namespace VittaClient.ViewModels
 
             _apiService = apiService;
             _user = user;
-            _user.UserId = _userId;
 
             Orders = new ObservableCollection<OrderDTO>();
             LoadOrdersAsync();
@@ -51,7 +49,7 @@ namespace VittaClient.ViewModels
 
         private void CreateOrderExecute(object parameter)
         {
-            _mainWindow.ChangePage(new CreateOrderView(_apiService, _userId));
+            _mainWindow.ChangePage(new CreateOrderView(_apiService, _user));
         }
 
         private async void LoadOrdersAsync()

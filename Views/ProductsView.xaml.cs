@@ -23,12 +23,10 @@ namespace VittaClient.Views
     /// </summary>
     public partial class ProductsView : Page
     {
-        public ProductsView(ApiService apiService, OrderDTO order, int userId)
+        public ProductsView(ApiService apiService, OrderDTO order, UserDTO user)
         {
             InitializeComponent();
-
-            DataContext = new ProductsViewModel(Application.Current.MainWindow as MainWindow, apiService, order, userId);
-
+            DataContext = new ProductsViewModel(Application.Current.MainWindow as MainWindow, apiService, order, user);
         }
     }
 }
